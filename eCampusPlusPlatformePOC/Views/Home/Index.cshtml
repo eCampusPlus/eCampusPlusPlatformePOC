@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Creation de dossier";
+}
+<br />
+<div id="loadingDiv" style="position: absolute; height: 100%; width: 100%; background-color: white; opacity: 0.5; z-index: 999; display: none"><img src="/Content/loader.gif" alt="Wait" style="position: absolute; top: 45%; left: 45%;" /></div>
+<div id="creation">
+    <a class="btn btn-default" onclick="javascript:CampusAccountCreation()">Procéder à la création de dossier</a>
+</div>
+<div id="activation" style="display: none">
+    <span>Lien d'activation</span><input type="url" id="lienValidation" />
+    <a class="btn btn-default" onclick="javascript:CampusAccountValidation()">Procéder à la création de dossier</a>
+</div>
+<div id="final" style="visibility: hidden">
+    <span>Compte et dossier créés avec success</span>
+
+</div>
+
+<script type="text/javascript">
+   
+    //var $loading = $('#loadingDiv').hide();
+    
+
+    function CampusAccountCreation()
+    {
+        $('#loadingDiv').show();
+        $.ajax({
+            url: "CampusAccountCreation",
+            context: document.body
+        }).done(function () {
+
+            $( "#creation" ).hide();
+            $("#activation").show();
+            $('#loadingDiv').hide();
+        });
+    }
+
+    function CampusAccountValidation() {
+        $('#loadingDiv').show();
+        $.ajax({
+            url: "CampusAccountValidation",
+            context: document.body,
+            data:{
+                lienValidation : $("#lienValidation").val()
+            }
+    }).done(function () {
+            $("#creation").hide();
+            $("#activation").hide();
+            $('#loadingDiv').hide();
+        });
+    }
+
+
+
+</script>
